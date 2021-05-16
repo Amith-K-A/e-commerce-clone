@@ -1,3 +1,3 @@
 module.exports = {
-    secret: "amith-secret-key"
+    secret: "xyz-secret-key"
   };
