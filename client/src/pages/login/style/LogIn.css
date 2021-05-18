@@ -44,6 +44,7 @@
 .login__container > p {
     margin-top: 15px;
     font-size: 12px;
+    text-align: start;
 }
 
 .login__signInButton {
@@ -63,4 +64,10 @@
     border: 1px solid;
     margin-top: 10px;
     border-color: darkgray;
+  }
+
+  .login__error{
+    display: flex;
+    padding-top: 20px;
+    color: red;
   }

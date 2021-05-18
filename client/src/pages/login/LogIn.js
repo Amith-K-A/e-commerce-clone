@@ -1,42 +1,41 @@
 import React, { useState } from "react";
-import "./Login.css";
+import "./style/LogIn.css";
 import { Link, useHistory } from "react-router-dom";
-import { auth } from "./firebase";
+import AuthService from "../../services/auth-services";
 
 function Login() {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const signIn = (e) => {
-    e.preventDefault();
+  const signIn = async (event) => {
+    event.preventDefault();
 
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((auth) => {
+    await AuthService.login(email, password)
+      .then(() => {
         history.push("/");
+        window.location.reload();
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => {
+        if (error) {
+          setErrorMessage(error.response.data.message);
+        }
+      });
   };
 
-  const register = (e) => {
-    e.preventDefault();
-
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((auth) => {
-        // it successfully created a new user with email and password
-        if (auth) {
-          history.push("/");
-        }
-      })
-      .catch((error) => alert(error.message));
+  const register = async (event) => {
+    event.preventDefault();
+    await AuthService.register(email, password).then(() => {
+      history.push("/");
+    });
   };
 
   return (
     <div className="login">
       <Link to="/">
         <img
+          alt=""
           className="login__logo"
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png"
         />
@@ -56,12 +55,12 @@ function Login() {
             Sign In
           </button>
         </form>
+        <div className="login__error">{errorMessage}</div>
 
         <p>
           By signing-in you agree to the AMAZON FAKE CLONE Conditions of Use & Sale. Please see our Privacy Notice, our
           Cookies Notice and our Interest-Based Ads Notice.
         </p>
-
         <button onClick={register} className="login__registerButton">
           Create your Amazon Account
         </button>
