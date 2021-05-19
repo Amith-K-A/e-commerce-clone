@@ -3,9 +3,11 @@ import "./styles/Checkout.css";
 import Subtotal from "../../components/SubTotal";
 import { useStateValue } from "../../context/stateProvide";
 import CheckoutProduct from "../../components/CheckoutProduct";
+import AuthService from "../../services/auth-services";
 
 function Checkout() {
-  const [{ cart, user }, dispatch] = useStateValue();
+  const [{ cart }, dispatch] = useStateValue();
+  const user = AuthService.getCurrentUser();
 
   return (
     <div className="checkout">

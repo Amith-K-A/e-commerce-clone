@@ -15,7 +15,7 @@ function Login() {
     await AuthService.login(email, password)
       .then(() => {
         history.push("/");
-        window.location.reload();
+        // window.location.reload();
       })
       .catch((error) => {
         if (error) {
