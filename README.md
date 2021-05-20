@@ -1,4 +1,4 @@
-# lIVE Demo: https://e-commerce-clone01.herokuapp.com/
+# Live Demo: https://e-commerce-clone01.herokuapp.com/
 
 # Getting Started with Create React App
 
